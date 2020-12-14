@@ -1,4 +1,5 @@
-const { Dinos } = require('./dino.json');
+import { Dinos } from './dino.json';
+import images from './images/*.png';
 
 /** Create TileCharacter Constructor
  * @description Represents a TileCharacter
@@ -129,7 +130,7 @@ class Display {
 
       return (this[instance] = new Dino(
         dino.species,
-        `./images/${instance}.png`,
+        images[instance],
         dino.weight,
         dino.height,
         dino.diet,
@@ -148,7 +149,7 @@ class Display {
       e.preventDefault();
 
       const name = document.querySelector('#name').value;
-      const image = './images/human.png';
+      const image = images['human'];
       const heightFoot = document.querySelector('#feet').value;
       const heightInch = document.querySelector('#inches').value;
       const weight = document.querySelector('#weight').value;
@@ -224,6 +225,7 @@ class Display {
   }
 
   generateTiles(arr) {
+    console.log('images', images);
     arr.forEach((tile, index) => {
       // possible to DRY
       const tileElement = document.createElement('div');
