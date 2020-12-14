@@ -89,7 +89,7 @@ Dino.prototype.compareHeight = function (humanHeightFt, humanHeightInch) {
  * @return {string} - string comparison fact (Dino object property)
  */
 Dino.prototype.compareDiet = function (humanDiet) {
-  this.dietCompare = `${this.name} is ${this.diet}s, human is ${humanDiet}`;
+  this.dietCompare = `${this.name} are ${this.diet}s, the human is a ${humanDiet}`;
 };
 
 /** Create Human Class
@@ -215,10 +215,12 @@ class Display {
     return randomFact;
   }
 
+  // creates a random tile order
   getRandomTileOrder(arr) {
-    //create random tile order - look into Fisher-Yates shuffle
+    const humanTile = arr.splice(arr.length - 1, 1);
     const randomTilesArr = arr.sort(() => Math.random() - 0.5);
-    this.generateTiles(randomTilesArr);
+    randomTilesArr.splice(4, 0, humanTile[0]); // add human tile to middle of array
+    this.generateTiles(arr);
   }
 
   generateTiles(arr) {
