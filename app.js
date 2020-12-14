@@ -165,11 +165,9 @@ class Display {
         heightInch
       );
       this.createTileData(human);
+      this.toggleForm();
     });
   }
-
-  // TODO: VALIDATION
-  formValidate() {}
 
   // create an random array of objects for each dino, human
   createTileData(humanData) {
@@ -225,7 +223,6 @@ class Display {
   }
 
   generateTiles(arr) {
-    console.log('images', images);
     arr.forEach((tile, index) => {
       // possible to DRY
       const tileElement = document.createElement('div');
@@ -239,9 +236,7 @@ class Display {
 
       tileElement.id = index; // temp
       tileTitle.innerHTML = tile.name || '';
-      //tileImage.src = 'https://placeimg.com/140/180/any'; PLACEHOLDER
-      tileImage.src = tile.image; // TODO: FIX ISSUE (not displaying image)
-      tileImage.alt = `${tile.name} Image`;
+      tileImage.src = tile.image;
 
       if (tile.name === 'Human') {
         tileFact.innerHTML = '';
@@ -261,11 +256,11 @@ class Display {
     });
   }
 
-  // TODO:
-  toggleForm() {}
-
-  // TODO:
-  resetForm() {}
+  // resets and hides form when submitted
+  toggleForm() {
+    const form = document.querySelector('#dino-compare');
+    form.parentNode.removeChild(form);
+  }
 }
 
 // driver
