@@ -1,7 +1,7 @@
 import { Dinos } from './dino.json';
 import images from './images/*.png';
 
-/** Create TileCharacter Constructor
+/** Create TileCharacter Class
  * @description Represents a TileCharacter
  * @constructor
  * @param {string} name - The name of the TileCharacter
@@ -18,7 +18,7 @@ class TileCharacter {
   }
 }
 
-/** Create Dino Constructor
+/** Create Dino Class
  * @description Represents a Dino
  * @constructor
  * @param {string} name - The name of the Dino
@@ -40,8 +40,7 @@ class Dino extends TileCharacter {
   }
 }
 
-// Create Dino Compare Method 1
-/**compareWeight()
+/**compareWeight() - Create Dino Compare Method 1
  * @description Represents a Dino class method to compare dino and human weights (both are in lbs)
  * @param {humanWeight} human - weight of human
  * @return {string} - string comparison fact (Dino object property)
@@ -60,8 +59,7 @@ Dino.prototype.compareWeight = function (humanWeight) {
   }
 };
 
-// Create Dino Compare Method 2
-/**compareHeight()
+/**compareHeight() - Create Dino Compare Method 2
  * @description Represents a Dino class method to compare dino and human heights
  * @param {humanHeightFt} human - height of human feet portion
  * @param {humanHeightInch} human - height of human inch portion
@@ -83,8 +81,7 @@ Dino.prototype.compareHeight = function (humanHeightFt, humanHeightInch) {
   }
 };
 
-// Create Dino Compare Method 3
-/**compareDiet()
+/**compareDiet() - Create Dino Compare Method 3
  * @description Represents a Dino class method to compare dino and human diets
  * @param {humanDiet} human - diet of human
  * @return {string} - string comparison fact (Dino object property)
@@ -111,17 +108,18 @@ class Human extends TileCharacter {
   }
 }
 
-/*Class UI Responsibility
-- get form data / validate
-- create dino and human objects
-- 3 compare methods
-- create random array of objects for dinos, human
-- generate tiles
-- remove form from screen
-- display infographic
-- clear form
-*/
+/** Create Display
+ * @description Represents User Interface
+ * @method getFormData() - get form data
+ * @method getDinoData() - create dino and human objects
+ * @method createTileData() - create the tiles
+ * @method getRandomFact() - random fact generator
+ * @method getRandomTileOrder() - orders tiles randomly
+ * @method generateTiles() - add tiles to DOM
+ * @method toggleForm() - toggle form
+ */
 class Display {
+  // create objects for dinos
   getDinoData() {
     this.dinosList = Dinos.map((dino) => {
       const instance = `${dino.species
@@ -182,11 +180,12 @@ class Display {
 
     // add everything to array
     const tilesArr = [...this.dinosList, humanData];
+
     this.getRandomTileOrder(tilesArr);
   }
 
+  // choose random fact
   getRandomFact() {
-    // choose random fact
     let randomFact;
     let num = Math.floor(Math.random() * 6) + 1;
 
@@ -222,37 +221,28 @@ class Display {
     this.generateTiles(arr);
   }
 
+  // appends tiles to DOM
   generateTiles(arr) {
     arr.forEach((tile, index) => {
-      // possible to DRY
       const tileElement = document.createElement('div');
-      const tileTitle = document.createElement('h3');
-      const tileImage = document.createElement('img');
-      const tileFact = document.createElement('p');
+      tileElement.setAttribute('class', 'grid-item');
 
-      tileElement.classList.add('grid-item');
+      // helper - to display same pigeon fact every time
+      const displayFact = (tileType) => {
+        if (tileType === 'Pigeon') {
+          return tile.fact;
+        } else {
+          return tile[this.getRandomFact(tile.name)];
+        }
+      };
+
+      tileElement.innerHTML = `
+         <h3>${tile.name || ''}</h3>
+         <img src=${tile.image} alt="tile character"></img>
+         <p>${index === 4 ? '' : displayFact(tile.name)}</p>
+      `; // don't display fact for human tile (index = 4)
 
       grid.appendChild(tileElement);
-
-      tileElement.id = index; // temp
-      tileTitle.innerHTML = tile.name || '';
-      tileImage.src = tile.image;
-
-      if (tile.name === 'Human') {
-        tileFact.innerHTML = '';
-      }
-
-      if (tile.name !== 'Pigeon' || tile.name !== 'Human') {
-        tileFact.innerHTML = tile[this.getRandomFact(tile.name)] || '';
-      }
-
-      if (tile.name === 'Pigeon') {
-        tileFact.innerHTML = tile.fact;
-      }
-
-      tileElement.appendChild(tileTitle);
-      tileElement.appendChild(tileImage);
-      tileElement.appendChild(tileFact);
     });
   }
 
