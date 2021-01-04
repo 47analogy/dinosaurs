@@ -37,17 +37,17 @@ We have supplied some of the foundational code for you. So follow these steps to
 
 To complete this project, your UI must show the following:
 
-- [ ] The form should contain a button which upon clicking, removes the form
-- [ ] The button should append a grid with 9 tiles to the DOM with the Human located in the center
-- [ ] The Human tile should display the name of the person and an image, the dino tiles should contain the species, an image and a fact, the bird title should contain the species, image, and "All birds are Dinosaurs."
+- [X] The form should contain a button which upon clicking, removes the form
+- [X] The button should append a grid with 9 tiles to the DOM with the Human located in the center
+- [X]The Human tile should display the name of the person and an image, the dino tiles should contain the species, an image and a fact, the bird title should contain the species, image, and "All birds are Dinosaurs."
 
 
 To complete this project, your backend code must:
 
-- [ ] Contain a class and all necessary objects
-- [ ] Contain at least 3 methods for comparing dinosaurs to the human
-- [ ] Get user data from the DOM
-- [ ] Append tiles with object data to DOM
+- [X] Contain a class and all necessary objects
+- [X] Contain at least 3 methods for comparing dinosaurs to the human
+- [X] Get user data from the DOM
+- [X] Append tiles with object data to DOM
 
 ### Above and Beyond
 
@@ -59,3 +59,7 @@ Some ideas might be to validate the form data to ensure the data is acceptable a
 ### Version Control
 
 Although not a requirement, we recommend using Git from the very beginning. Make sure to commit often and to use well-formatted commit messages that conform to our Git Style Guide.
+
+### To Run Project
+
+```npm start```

@@ -42,7 +42,7 @@ class Dino extends TileCharacter {
 
 /**compareWeight() - Create Dino Compare Method 1
  * @description Represents a Dino class method to compare dino and human weights (both are in lbs)
- * @param {humanWeight} human - weight of human
+ * @param {number} humanWeight - weight of human
  * @return {string} - string comparison fact (Dino object property)
  */
 Dino.prototype.compareWeight = function (humanWeight) {
@@ -61,8 +61,8 @@ Dino.prototype.compareWeight = function (humanWeight) {
 
 /**compareHeight() - Create Dino Compare Method 2
  * @description Represents a Dino class method to compare dino and human heights
- * @param {humanHeightFt} human - height of human feet portion
- * @param {humanHeightInch} human - height of human inch portion
+ * @param {number} humanHeightFt - height of human feet portion
+ * @param {number} humanHeightInch - height of human inch portion
  * @return {string} - string comparison fact (Dino object property)
  */
 Dino.prototype.compareHeight = function (humanHeightFt, humanHeightInch) {
@@ -83,7 +83,7 @@ Dino.prototype.compareHeight = function (humanHeightFt, humanHeightInch) {
 
 /**compareDiet() - Create Dino Compare Method 3
  * @description Represents a Dino class method to compare dino and human diets
- * @param {humanDiet} human - diet of human
+ * @param {string} humanDiet - diet of human
  * @return {string} - string comparison fact (Dino object property)
  */
 Dino.prototype.compareDiet = function (humanDiet) {
@@ -139,6 +139,29 @@ class Display {
     });
   }
 
+  // create an random array of objects for each dino, human
+  createTileData(humanData) {
+    // loop thru each dino and add 3 compare methods
+    this.dinosList.map((dino) => {
+      dino.compareWeight(humanData.weight);
+      dino.compareHeight(humanData.heightFoot, humanData.heightInch);
+      dino.compareDiet(humanData.diet);
+      dino.height = `Height: ${dino.height} inches tall`;
+      dino.weight = `Weight: ${dino.weight} lbs`;
+    });
+
+    // add everything to array
+    const tilesArr = [...this.dinosList, humanData];
+
+    this.getRandomTileOrder(tilesArr);
+  }
+
+  // resets and hides form when submitted
+  toggleForm() {
+    const form = document.querySelector('#dino-compare');
+    form.parentNode.removeChild(form);
+  }
+
   // get data from form
   getFormData() {
     const form = document.querySelector('#dino-compare');
@@ -165,23 +188,6 @@ class Display {
       this.createTileData(human);
       this.toggleForm();
     });
-  }
-
-  // create an random array of objects for each dino, human
-  createTileData(humanData) {
-    // loop thru each dino and add 3 compare methods
-    this.dinosList.map((dino) => {
-      dino.compareWeight(humanData.weight);
-      dino.compareHeight(humanData.heightFoot, humanData.heightInch);
-      dino.compareDiet(humanData.diet);
-      dino.height = `Height: ${dino.height} inches tall`;
-      dino.weight = `Weight: ${dino.weight} lbs`;
-    });
-
-    // add everything to array
-    const tilesArr = [...this.dinosList, humanData];
-
-    this.getRandomTileOrder(tilesArr);
   }
 
   // choose random fact
@@ -244,12 +250,6 @@ class Display {
 
       grid.appendChild(tileElement);
     });
-  }
-
-  // resets and hides form when submitted
-  toggleForm() {
-    const form = document.querySelector('#dino-compare');
-    form.parentNode.removeChild(form);
   }
 }
 
